@@ -1,0 +1,11 @@
+/contact/
+/message/
+/.settings/
+.project
+smsserver.log*
+/report*/
+/bin/
+/.*/
+
+
+
