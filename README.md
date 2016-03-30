@@ -10,4 +10,4 @@ Be Used For:
 Used Tools and Libs:
 - SMSLib V4: git@github.com:tdelenikas/smslib.git
 - Java JDK 1.8.0_45
-- Eclipse JEE Lune SR2
+- Eclipse JEE Luna SR2
