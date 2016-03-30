@@ -56,7 +56,7 @@ public class ContactManager {
 		} else if (carrier == Carrier.Mobifone){
 			noMobifone ++;
 		} else if (carrier == Carrier.Vinaphone){
-			noViettel ++;
+			noVinaphone ++;
 		} else 
 			noUnknow++;
 	}
