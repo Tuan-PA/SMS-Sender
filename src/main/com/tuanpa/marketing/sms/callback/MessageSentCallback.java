@@ -12,8 +12,8 @@ public class MessageSentCallback implements IMessageSentCallback {
 	public boolean process(MessageSentCallbackEvent event) {
 		// TODO Auto-generated method stub
 		OutboundMessage obMess = event.getMessage();
-		String log = event.getDate().toString();
-		log += " To : " + obMess.getRecipientAddress().getAddress();
+		String log = "";
+		log += " To: " + obMess.getRecipientAddress().getAddress();
 		log += " Via: " + obMess.getGatewayId();
 		log += " Content: " + obMess.getPayload().getText();
 		log += " - " + obMess.getSentStatus();

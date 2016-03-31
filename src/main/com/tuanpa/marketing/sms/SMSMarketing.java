@@ -109,6 +109,7 @@ public class SMSMarketing {
 		int sleepTime = (int) (60000 / (Service.getInstance().getGatewayIDs()
 				.size() * spm));
 		Settings.gatewayDispatcherYield = sleepTime;
+		Settings.loadSettings();
 		while (!ContactManager.isEnd()) {
 			Contact contact = ContactManager.getCurrentContact();
 			if (contact.getCarrier() == carrier) {
