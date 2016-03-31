@@ -11,7 +11,6 @@ public enum Carrier {
 		String gmobile = "-8499-84199-";
 		phone = formatPhoneToCarrier(phone);
 		String preFix = ""; 
-		System.out.println("Phone:" + phone.substring(0, 3));
 		if (phone.substring(0, 3).equals("841")){
 			preFix = "-" + phone.substring(0, 5) + "-";
 		} else {
