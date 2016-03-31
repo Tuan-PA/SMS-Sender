@@ -10,8 +10,8 @@ public class InboundMessageCallback implements IInboundMessageCallback {
 	public boolean process(InboundMessageCallbackEvent event) {
 		// TODO Auto-generated method stub
 		String log = event.getDate().toString();
-		log += " To : " + event.getMessage().getRecipientAddress();
-		log += " From:  " + event.getMessage().getOriginatorAddress();
+		log += " To : " + event.getMessage().getGatewayId();
+		log += " From:  " + event.getMessage().getOriginatorAddress().getAddress();
 		log += " Content:  " + event.getMessage().getPayload().getText();
 		SMSLogger.getInstance().log("InBound", log);
 		return true;

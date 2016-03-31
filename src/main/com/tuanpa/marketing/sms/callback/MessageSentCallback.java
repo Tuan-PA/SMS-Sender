@@ -25,7 +25,9 @@ public class MessageSentCallback implements IMessageSentCallback
 		case Failed:
 			log += " - " + obMess.getFailureCause();
 			SMSLogger.getInstance().log("MessageFail", log);
-			SMSLogger.getInstance().log("PhoneFail", obMess.getRecipientAddress().getAddress());
+			String failLog = obMess.getRecipientAddress().getAddress();
+			failLog += ";" + failLog;
+			SMSLogger.getInstance().log("PhoneFail", failLog);
 			break;
 		case Queued:
 			break;
