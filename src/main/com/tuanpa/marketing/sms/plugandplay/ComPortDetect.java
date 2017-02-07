@@ -2,8 +2,8 @@ package main.com.tuanpa.marketing.sms.plugandplay;
 
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.HashMap;
 
 import main.com.tuanpa.marketing.sms.log.SMSLogger;
 
@@ -11,10 +11,10 @@ import org.smslib.gateway.modem.driver.serial.CommPortIdentifier;
 import org.smslib.gateway.modem.driver.serial.SerialPort;
 
 public class ComPortDetect {
-//	private static int bauds[] = { 9600, 19200, 14400, 28800, 33600, 38400,
-//			56000, 57600, 115200 };
+	private static int bauds[] = { 9600, 19200, 14400, 28800, 33600, 38400,
+			56000, 57600, 115200 };
 	public static final String MAINCLASS = "org.smslib.Service";
-	public static ArrayList<CommPortIdentifier> lPort;
+	public static HashMap<CommPortIdentifier, Integer> lPort;
 
 	public ComPortDetect() throws Exception {
 		Class.forName(MAINCLASS);
@@ -24,9 +24,8 @@ public class ComPortDetect {
 		if (lPort != null) {
 			lPort.clear();
 		} else {
-			lPort = new ArrayList<CommPortIdentifier>();
+			lPort = new HashMap<CommPortIdentifier, Integer>();
 		}
-		int bauds[] = { 9600, 14400, 19200, 28800, 33600, 38400, 56000, 57600, 115200 };
 		Enumeration<CommPortIdentifier> portList = CommPortIdentifier.getPortIdentifiers();
 		while (portList.hasMoreElements())
 		{
@@ -34,7 +33,7 @@ public class ComPortDetect {
 			if (portId.getPortType() == CommPortIdentifier.PORT_SERIAL)
 			{
 				System.out.println(String.format("====== Found port: %-5s", portId.getName()));
-				for (int i = 0; i < 1; i++)
+				for (int i = 0; i < bauds.length; i++)
 				{
 					SerialPort serialPort = null;
 					InputStream inStream = null;
@@ -85,7 +84,7 @@ public class ComPortDetect {
 									response += (char) c;
 									c = inStream.read();
 								}
-								lPort.add(portId);
+								lPort.put(portId, bauds[i]);
 								System.out.println(" Found: " + response.replaceAll("\\s+OK\\s+", "").replaceAll("\n", "").replaceAll("\r", ""));
 								break;
 							}
@@ -119,7 +118,7 @@ public class ComPortDetect {
 		System.out.println("\nTest complete.");
 		String log = "";
 		log += "Total Device: " + lPort.size() + "\n";
-		for (CommPortIdentifier pid : lPort){
+		for (CommPortIdentifier pid : lPort.keySet()){
 			log += pid.getName() + "\n";
 		}
 		SMSLogger.getInstance().log("DEVICE", log);

@@ -1,11 +1,7 @@
 package main.com.tuanpa.marketing.sms;
 
-import javax.mail.Message;
-import javax.swing.text.html.parser.ContentModel;
-
-import main.com.tuanpa.marketing.sms.contact.ContactManager;
+import org.smslib.Service;
 import main.com.tuanpa.marketing.sms.log.SMSLogger;
-import main.com.tuanpa.marketing.sms.message.MessageManager;
 import main.com.tuanpa.marketing.sms.msisdn.Carrier;
 
 /**
@@ -23,18 +19,17 @@ public class MainProgram {
 			if (isInited) {
 				SMSMarketing.getInstance(carrier).addCallback();
 				SMSMarketing.getInstance(carrier).registerGateway();
-				SMSMarketing.getInstance(carrier).sendMessage(1);
+				SMSMarketing.getInstance(carrier).sendMessage(1.2f);
 
-				int count = 0;
-				while (count <= 10) {
-					if (count  == 5)
-						SMSLogger.getInstance().log("Statistic",
-								SMSMarketing.getInstance(carrier)
-										.getStatistic());
-					count++;
-					Thread.sleep(60000);
+				while (true) {
+					if (Service.getInstance().getAllQueueLoad() <= 0) break;
+					Thread.sleep(6000);
 				}
-
+				
+				Thread.sleep(60000);
+				SMSLogger.getInstance().log("Statistic",
+						SMSMarketing.getInstance(carrier)
+						.getStatistic());
 			} else {
 				System.out.println("Check input data");
 			}
